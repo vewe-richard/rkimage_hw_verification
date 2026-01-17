@@ -1,0 +1,20 @@
+# Build output
+build/
+
+# Original unpacked files
+all/
+
+# Large image files
+*.img
+firmware*
+
+# Tools (use compressed versions in gz/)
+afptool
+rkImageMaker
+
+# boot.bin (use compressed version in gz/)
+boot.bin
+
+# OS files
+.DS_Store
+Thumbs.db
