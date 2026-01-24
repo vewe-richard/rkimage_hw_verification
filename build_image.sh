@@ -20,10 +20,9 @@ OUTPUT_IMAGE="$SCRIPT_DIR/myir-image-lr3576-debian.img"
 # Check dependencies
 #----------------------------------------
 check_deps() {
-    for cmd in gzip gdown; do
+    for cmd in gzip; do
         if ! command -v "$cmd" &> /dev/null; then
             echo "Error: '$cmd' not found"
-            echo "Install with: pip install gdown"
             exit 1
         fi
     done
@@ -36,14 +35,18 @@ download_rootfs() {
     local url
     url=$(cat "$SCRIPT_DIR/ROOTFS_URL.txt" | tr -d '\n')
 
-    if [ -f "$BUILD_DIR/rootfs.img" ]; then
-        echo "rootfs.img already exists, skipping download"
-        echo "(Delete build/rootfs.img to re-download)"
+    if [ -f "rootfs.img" ]; then
+        echo "rootfs.img exists"
         return
     fi
 
-    echo "Downloading rootfs.img from Google Drive..."
-    gdown "$url" -O "$BUILD_DIR/rootfs.img"
+    #echo "Downloading rootfs.img from Google Drive..."
+    #gdown "$url" -O "$BUILD_DIR/rootfs.img"
+    echo ""
+    echo "Error: rootfs.img does not exist!"
+    echo "Please download it to current directory. (${PWD})/"
+    echo ""
+    exit 1
 }
 
 #----------------------------------------
@@ -57,7 +60,7 @@ main() {
     check_deps
 
     # Clean and create directories
-    rm -rf "$ALL_DIR" "$TOOLS_DIR"
+    rm -rf "$BUILD_DIR"
     mkdir -p "$ALL_DIR" "$TOOLS_DIR"
     mkdir -p "$BUILD_DIR"
 
@@ -92,7 +95,7 @@ main() {
     echo ""
     echo "[3/4] Getting rootfs.img..."
     download_rootfs
-    cp "$BUILD_DIR/rootfs.img" "$ALL_DIR/"
+    ln -s "$BUILD_DIR"/../rootfs.img $BUILD_DIR/all/rootfs.img
 
     # Step 4: Pack final image
     echo ""

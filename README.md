@@ -7,6 +7,7 @@ Build flashable image for MYD-LR3576 board (Rockchip RK3576).
 ```bash
 git clone https://github.com/xxx/myd-lr3576-image.git
 cd myd-lr3576-image
+# Download rootfs.img to current directory
 ./build_image.sh
 ```
 
