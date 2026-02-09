@@ -31,6 +31,9 @@ sudo upgrade_tool uf myir-image-lr3576-debian.img
 # Compress and replace
 gzip -c /path/to/new/boot.img > gz/boot.img.gz
 gzip -c /path/to/new/uboot.img > gz/uboot.img.gz
+for example:
+gzip -c /home/richard/work/2025/rockchip/myir/MYD-LR3576/kernel-6.1/boot.img > gz/boot.img.gz
+
 
 # Commit and push
 git add gz/
